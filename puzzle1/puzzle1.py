@@ -136,7 +136,6 @@ def moveMonsters(gameState):
                 dy = gameState.actManPos[1] - newCol
                 distance = (dx * dx) + (dy * dy)
                 distances.append((distance, act[2], (newRow, newCol)))
-        # sort the distances array based on distances.
         distances.sort(key=lambda b : b[0])
         monst = gameState.dungeonLayout[monsterPos[0]][monsterPos[1]]
 
@@ -201,17 +200,22 @@ def main():
     while True:
         direction = getRandomDirection()
         dx, dy = 0, 0
-        direction_changes = {
-            Direction.North: (-1, 0),
-            Direction.South: (1, 0),
-            Direction.East: (0, 1),
-            Direction.West: (0, -1),
-            Direction.North_East: (-1, 1),
-            Direction.South_East: (1, 1),
-            Direction.North_West: (-1, -1),
-            Direction.South_West: (1, -1)
-        }
-        dx, dy = direction_changes[direction]
+        if direction == Direction.North:
+            dx = -1
+        elif direction == Direction.South:
+            dx = 1
+        elif direction == Direction.East:
+            dy = 1
+        elif direction == Direction.West:
+            dy = -1
+        elif direction == Direction.North_East:
+            dx, dy = -1, 1
+        elif direction == Direction.South_East:
+            dx, dy = 1, 1
+        elif direction == Direction.North_West:
+            dx, dy = -1, -1
+        elif direction == Direction.South_West:
+            dx, dy = 1, -1
 
         newRow = gameState.actManPos[0] + dx
         newCol = gameState.actManPos[1] + dy
